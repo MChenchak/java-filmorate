@@ -1,0 +1,6 @@
+app:
+  datasource:
+    jdbc-url: jdbc:postgresql://localhost:5432/filmorateDB
+    username: postgres
+    password: 57573e36
+    pool-size: 30
