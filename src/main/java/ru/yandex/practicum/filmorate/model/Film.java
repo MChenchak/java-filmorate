@@ -19,11 +19,11 @@ public class Film {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     int id;
     @NotBlank(message = "Название фильма не может быть пустым.")
-    private final String name;
+    String name;
     @Size(max = 200)
-    private final String description;
+    String description;
     @FilmDate(message = "Дата релиза не может быть раньше 28/12/1895")
-    private final LocalDate releaseDate;
+    LocalDate releaseDate;
     @Positive(message = "Длительность фильма не может быть меньше 0.")
-    private final int duration;
+    int duration;
 }
