@@ -5,6 +5,7 @@ import org.springframework.stereotype.Repository;
 import ru.yandex.practicum.filmorate.model.Film;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface FilmRepository extends JpaRepository<Film, Long> {
@@ -12,6 +13,6 @@ public interface FilmRepository extends JpaRepository<Film, Long> {
 
     Film save(Film film);
 
-    Film findById(int id);
+    Optional<Film> findById(Long id);
 
 }
