@@ -4,8 +4,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 import ru.yandex.practicum.filmorate.model.Film;
-import ru.yandex.practicum.filmorate.model.User;
 import ru.yandex.practicum.filmorate.service.FilmService;
+import ru.yandex.practicum.filmorate.storage.FilmStorage;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -15,15 +15,16 @@ import java.util.List;
 @RequestMapping("/films")
 public class FilmController {
   private final FilmService filmService;
+  private final FilmStorage filmStorage;
 
   @GetMapping
   List<Film> findAll() {
-    return filmService.getAll();
+    return filmStorage.getAll();
   }
 
   @GetMapping("/{id}")
   Film getById(@PathVariable Long id) {
-    return filmService.getById(id);
+    return filmStorage.getById(id);
   }
 
   @GetMapping("/popular")
@@ -33,12 +34,12 @@ public class FilmController {
 
   @PostMapping
   Film create(@Valid @RequestBody Film film) throws MethodArgumentNotValidException {
-    return filmService.create(film);
+    return filmStorage.create(film);
   }
 
   @PutMapping
   Film update(@Valid @RequestBody Film film) throws Exception {
-    return filmService.update(film);
+    return filmStorage.update(film);
   }
 
   @PutMapping("/{id}/like/{userId}")

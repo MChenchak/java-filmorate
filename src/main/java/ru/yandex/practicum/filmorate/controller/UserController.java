@@ -1,13 +1,12 @@
 package ru.yandex.practicum.filmorate.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 import ru.yandex.practicum.filmorate.model.User;
 import ru.yandex.practicum.filmorate.service.UserService;
+import ru.yandex.practicum.filmorate.storage.UserStorage;
 
 import javax.validation.Valid;
-import javax.xml.bind.ValidationException;
 import java.util.List;
 
 @RestController
@@ -15,15 +14,16 @@ import java.util.List;
 @RequestMapping("/users")
 public class UserController {
     private final UserService userService;
+    private final UserStorage userStorage;
 
     @GetMapping
     List<User> findAll() {
-        return userService.getAll();
+        return userStorage.getAll();
     }
 
     @GetMapping("/{id}")
     User getById(@PathVariable Long id) {
-        return userService.getById(id);
+        return userStorage.getById(id);
     }
 
     @GetMapping("/{id}/friends")
@@ -38,12 +38,12 @@ public class UserController {
 
     @PostMapping
     User create(@Valid @RequestBody User user) {
-        return userService.create(user);
+        return userStorage.create(user);
     }
 
     @PutMapping
     User update(@Valid @RequestBody User user) throws Exception{
-        return userService.update(user);
+        return userStorage.update(user);
     }
 
     @PutMapping("/{id}/friends/{friendId}")
