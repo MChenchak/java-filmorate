@@ -1,5 +1,5 @@
 # java-filmorate
-![Сема базы данных](https://github.com/MChenchak/java-filmorate/blob/main/database%20schema.png)
+![Сема базы данных](https://github.com/MChenchak/java-filmorate/blob/add-database-schema/database%20schema.png)
 
 Для **жанров**, **категорий** фильмов и **статусов** дружбы использованы Enum`ы вместо создания дополнительных таблиц. 
 
