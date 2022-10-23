@@ -10,15 +10,6 @@ CREATE TYPE "friendship_status" AS ENUM (
   'Unaccepted'
 );
 
-CREATE TYPE "film_genre" AS ENUM (
-  'Comedy',
-  'Drama',
-  'Cartoon',
-  'Thriller',
-  'Documentary',
-  'Action'
-);
-
 CREATE TYPE "film_rating" AS ENUM (
   'G',
   'PG',
@@ -39,7 +30,7 @@ CREATE TABLE "film" (
   "name" varchar,
   "cdescription" varchar,
   "release_date" timestamp,
-  "genre" film_genre,
+  "genre_id" long,
   "rating" film_rating,
   "duration" int
 );
@@ -57,6 +48,17 @@ CREATE TABLE "user_films" (
   PRIMARY KEY ("user_id", "film_id")
 );
 
+CREATE TABLE "genre" (
+  "id" long PRIMARY KEY,
+  "name" varchat
+);
+
+CREATE TABLE "film_genre" (
+  "film_id" long,
+  "genre_id" long,
+  PRIMARY KEY ("film_id", "genre_id")
+);
+
 ALTER TABLE "friendship" ADD FOREIGN KEY ("subscription_id") REFERENCES "users" ("id");
 
 ALTER TABLE "friendship" ADD FOREIGN KEY ("subscriber_id") REFERENCES "users" ("id");
@@ -64,4 +66,9 @@ ALTER TABLE "friendship" ADD FOREIGN KEY ("subscriber_id") REFERENCES "users" ("
 ALTER TABLE "user_films" ADD FOREIGN KEY ("user_id") REFERENCES "users" ("id");
 
 ALTER TABLE "user_films" ADD FOREIGN KEY ("film_id") REFERENCES "film" ("id");
+
+ALTER TABLE "film_genre" ADD FOREIGN KEY ("film_id") REFERENCES "film" ("id");
+
+ALTER TABLE "film_genre" ADD FOREIGN KEY ("genre_id") REFERENCES "genre" ("id");
+
 ```
