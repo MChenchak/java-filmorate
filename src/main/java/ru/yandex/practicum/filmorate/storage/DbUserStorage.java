@@ -33,9 +33,6 @@ public class DbUserStorage implements UserStorage {
 
     @Override
     public User update(User data) {
-        User userToUpdate = getById(data.getId());
-        userToUpdate = data;
-        userRepository.save(userToUpdate);
-        return userToUpdate;
+        return userRepository.update(data);
     }
 }

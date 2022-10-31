@@ -3,37 +3,40 @@ package ru.yandex.practicum.filmorate.model;
 import lombok.*;
 import ru.yandex.practicum.filmorate.annotation.FilmDate;
 
-import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Positive;
 import javax.validation.constraints.Size;
 import java.time.LocalDate;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
-@Entity
 @Setter
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString
+@Builder
 public class Film {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
+    private Long id;
     @NotBlank(message = "Название фильма не может быть пустым.")
-    String name;
+    private String name;
     @Size(max = 200)
-    String description;
+    private String description;
     @FilmDate(message = "Дата релиза не может быть раньше 28/12/1895")
-    LocalDate releaseDate;
+    private LocalDate releaseDate;
     @Positive(message = "Длительность фильма не может быть меньше 0.")
-    int duration;
-    @ManyToMany()
-    @JoinTable(
-            name = "film_likes",
-            joinColumns = { @JoinColumn(name = "film_id") },
-            inverseJoinColumns = { @JoinColumn(name = "user_id") }
-    )
+    private int duration;
     Set<User> likes = new HashSet<>();
+    private List<Genre> genres;
+    private Mpa mpa;
+    private int rate;
+
+    public Map<String, Object> toMap() {
+        Map<String, Object> map = new HashMap<>();
+        map.put("name", name);
+        map.put("description", description);
+        map.put("release_date", releaseDate);
+        map.put("duration", duration);
+        map.put("mpa_id",mpa.getId());
+        map.put("rate", rate);
+        return map;
+    }
 }

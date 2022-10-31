@@ -33,7 +33,7 @@ public class DbFilmStorage implements FilmStorage {
     public Film update(Film data) {
         Film filmToUpdate = getById(data.getId());
         filmToUpdate = data;
-        filmRepository.save(filmToUpdate);
+        filmRepository.update(filmToUpdate);
         return filmToUpdate;
     }
 }

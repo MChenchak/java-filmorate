@@ -1,6 +1,7 @@
 package ru.yandex.practicum.filmorate.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 import ru.yandex.practicum.filmorate.model.Film;
@@ -39,7 +40,7 @@ public class FilmController {
 
   @PutMapping
   Film update(@Valid @RequestBody Film film) throws Exception {
-    return filmStorage.update(film);
+    return filmService.update(film);
   }
 
   @PutMapping("/{id}/like/{userId}")
@@ -47,8 +48,9 @@ public class FilmController {
     filmService.likeFilm(filmId, userId);
   }
 
-  @DeleteMapping("/{id}/like/{userId}")
-  void deleteFilm(@PathVariable("id") Long filmId, @PathVariable Long userId) {
+
+  @DeleteMapping("/{filmId}/like/{userId}")
+  void deleteLikeFilm(@PathVariable("filmId") Long filmId, @PathVariable("userId") Long userId) {
     filmService.deleteLike(filmId, userId);
   }
 }

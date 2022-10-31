@@ -1,12 +1,14 @@
 package ru.yandex.practicum.filmorate.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import ru.yandex.practicum.filmorate.model.User;
 import ru.yandex.practicum.filmorate.service.UserService;
 import ru.yandex.practicum.filmorate.storage.UserStorage;
 
 import javax.validation.Valid;
+import javax.validation.constraints.Positive;
 import java.util.List;
 
 @RestController
@@ -47,8 +49,13 @@ public class UserController {
     }
 
     @PutMapping("/{id}/friends/{friendId}")
-    void setFriend(@PathVariable("id") Long userId, @PathVariable Long friendId) {
-        userService.setFriend(userId, friendId);
+    void addFriend(
+            @PathVariable("id") Long userId,
+            @PathVariable Long friendId) {
+        if(userId < 0 || friendId < 0) {
+            throw new IllegalStateException("Указан некорректный id");
+        }
+        userService.addFriend(userId, friendId);
     }
 
     @DeleteMapping("/{id}/friends/{friendId}")
