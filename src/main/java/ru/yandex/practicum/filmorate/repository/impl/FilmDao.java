@@ -88,7 +88,7 @@ public class FilmDao implements FilmRepository {
     }
 
     @Override
-    public Optional<Film> findById(Long id) {
+    public Optional<Film> findById(Long id) throws NullPointerException{
         SqlRowSet filmRows = jdbcTemplate.queryForRowSet(
                 "select * from film where id = ?", id);
 
