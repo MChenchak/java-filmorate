@@ -31,9 +31,10 @@ public class DbFilmStorage implements FilmStorage {
 
     @Override
     public Film update(Film data) {
-        Film filmToUpdate = getById(data.getId());
-        filmToUpdate = data;
-        filmRepository.save(filmToUpdate);
-        return filmToUpdate;
+        if (!filmRepository.findById(data.getId()).isEmpty()) {
+            return filmRepository.update(data);
+        } else {
+            throw new IllegalStateException("Фильм не найден");
+        }
     }
 }
